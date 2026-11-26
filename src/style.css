@@ -9,7 +9,7 @@
   --panel: #d7d7d7;
   --panel-light: #f2f2f2;
   --line: #e7e7e7;
-  --muted: #989898;
+  --muted: #9f8ea5;
   --accent: #93006e;
   --danger: #ff992b;
   --warning: #ef8732;
@@ -382,9 +382,9 @@ h3 {
   margin-top: 14px;
   overflow: hidden;
   background:
-    linear-gradient(45deg, #fff 25%, transparent 25%) 0 0 / 20px 20px,
+    linear-gradient(45deg, #e8e8e8 25%, transparent 25%) 0 0 / 20px 20px,
     linear-gradient(45deg, transparent 75%, #efefef 75%) 0 0 / 20px 20px,
-    #dfdfdf;
+    #fff;
 }
 
 .comparison-frame img {
