@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="Extract a global color transformation from two photographs and export a Hald CLUT Level 8 PNG."
+    />
+    <title>Photo LUT Extractor</title>
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">LOCAL · PRIVATE · HALD CLUT LEVEL 8</p>
+          <h1>Photo LUT Extractor</h1>
+          <p class="lead">
+            Recover a global RGB color transformation from an original and
+            edited photograph.
+          </p>
+        </div>
+
+        <button id="resetButton" class="button button-secondary" type="button">
+          RESET
+        </button>
+      </header>
+
+      <section class="upload-grid" aria-label="Image upload">
+        <article class="upload-card">
+          <div class="card-heading">
+            <div>
+              <span class="step">01</span>
+              <h2>ORIGINAL</h2>
+            </div>
+            <span id="originalMeta" class="file-meta">No image</span>
+          </div>
+
+          <label id="originalDrop" class="drop-zone">
+            <input
+              id="originalInput"
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+            />
+            <img id="originalPreview" alt="Original preview" hidden />
+            <span class="drop-copy">
+              <strong>Drop original image</strong>
+              <small>or click to select PNG, JPEG or WebP</small>
+            </span>
+          </label>
+        </article>
+
+        <article class="upload-card">
+          <div class="card-heading">
+            <div>
+              <span class="step">02</span>
+              <h2>EDITED</h2>
+            </div>
+            <span id="editedMeta" class="file-meta">No image</span>
+          </div>
+
+          <label id="editedDrop" class="drop-zone">
+            <input
+              id="editedInput"
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+            />
+            <img id="editedPreview" alt="Edited preview" hidden />
+            <span class="drop-copy">
+              <strong>Drop edited image</strong>
+              <small>or click to select PNG, JPEG or WebP</small>
+            </span>
+          </label>
+        </article>
+      </section>
+
+      <section class="generate-panel">
+        <div>
+          <span class="step">03</span>
+          <h2>GENERATE</h2>
+          <p>
+            Images remain on this device. No upload, backend or external API is
+            used.
+          </p>
+        </div>
+
+        <button id="generateButton" class="button button-primary" disabled>
+          GENERATE LUT
+        </button>
+      </section>
+
+      <section id="progressPanel" class="progress-panel" hidden>
+        <div class="progress-labels">
+          <span id="progressStage">Preparing images…</span>
+          <strong id="progressPercent">0%</strong>
+        </div>
+        <div
+          class="progress-track"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </section>
+
+      <div id="message" class="message" hidden></div>
+
+      <section id="resultSection" class="result-section" hidden>
+        <div class="section-heading">
+          <div>
+            <span class="step">04</span>
+            <h2>RESULT</h2>
+          </div>
+          <button id="downloadButton" class="button button-primary">
+            DOWNLOAD PNG
+          </button>
+        </div>
+
+        <div class="result-grid">
+          <article class="result-card lut-card">
+            <img id="lutPreview" alt="Generated Hald CLUT" />
+            <div class="result-details">
+              <div>
+                <span>FORMAT</span>
+                <strong>PNG RGB</strong>
+              </div>
+              <div>
+                <span>SIZE</span>
+                <strong>512 × 512</strong>
+              </div>
+              <div>
+                <span>LUT</span>
+                <strong>64³ / Level 8</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="metrics-card">
+            <h3>QUALITY ESTIMATE</h3>
+            <dl>
+              <div>
+                <dt>RGB MAE</dt>
+                <dd id="maeMetric">—</dd>
+              </div>
+              <div>
+                <dt>Mean ΔE76</dt>
+                <dd id="deltaMetric">—</dd>
+              </div>
+              <div>
+                <dt>Registration</dt>
+                <dd id="registrationMetric">—</dd>
+              </div>
+              <div>
+                <dt>Samples</dt>
+                <dd id="samplesMetric">—</dd>
+              </div>
+            </dl>
+            <p class="metric-note">
+              Error is measured against corresponding pixels in the edited
+              image. Spatial masks and local effects cannot be represented by a
+              3D LUT.
+            </p>
+          </article>
+        </div>
+
+        <article class="comparison">
+          <div class="comparison-heading">
+            <h3>ORIGINAL / LUT PREVIEW</h3>
+            <label class="switch-label">
+              <span>Original</span>
+              <input id="comparisonToggle" type="checkbox" />
+              <span class="switch"></span>
+              <span>LUT</span>
+            </label>
+          </div>
+
+          <div class="comparison-frame">
+            <img id="comparisonOriginal" alt="Original image" />
+            <img
+              id="comparisonResult"
+              alt="Original image with generated LUT"
+              hidden
+            />
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
