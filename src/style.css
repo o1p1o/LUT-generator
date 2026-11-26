@@ -10,7 +10,7 @@
   --panel-light: #f2f2f2;
   --line: #e7e7e7;
   --muted: #989898;
-  --accent: #43ecff;
+  --accent: #93006e;
   --danger: #ff992b;
   --warning: #a6c5ff;
 }
@@ -24,7 +24,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 70% 0%, #fff7fc 0, transparent 32rem),
+    radial-gradient(circle at 70% 0%, #fff7fc 0, transparent 132rem),
     #d157a4;
 }
 
@@ -207,7 +207,7 @@ h3 {
 }
 
 .button-primary:hover:not(:disabled) {
-  background: #98eef6;
+  background: #c02499;
 }
 
 .button-secondary {
@@ -276,19 +276,19 @@ h3 {
 .message-error {
   border-color: #c33f92;
   color: var(--danger);
-  background: #241515;
+  background: #dbdbdb;
 }
 
 .message-warning {
   border-color: #6c5931;
   color: var(--warning);
-  background: #241f13;
+  background: #f4f4f4;
 }
 
 .message-success {
-  border-color: #53642d;
+  border-color: #c1289b;
   color: #a40e63;
-  background: #1c2211;
+  background: #eeeeee;
 }
 
 .result-section {
@@ -304,7 +304,7 @@ h3 {
 .result-card,
 .metrics-card {
   padding: 18px;
-  background: #121212;
+  background: #dfdfdf;
 }
 
 .lut-card img {
@@ -327,7 +327,7 @@ h3 {
   display: grid;
   gap: 6px;
   padding: 14px;
-  background: #171717;
+  background: #e4e4e4;
 }
 
 .result-details span,
@@ -371,7 +371,7 @@ h3 {
 .comparison {
   margin-top: 18px;
   padding: 18px;
-  background: #121212;
+  background: #e1e1e1;
 }
 
 .comparison-frame {
@@ -381,9 +381,9 @@ h3 {
   margin-top: 14px;
   overflow: hidden;
   background:
-    linear-gradient(45deg, #202020 25%, transparent 25%) 0 0 / 20px 20px,
-    linear-gradient(45deg, transparent 75%, #202020 75%) 0 0 / 20px 20px,
-    #181818;
+    linear-gradient(45deg, #eaeaea 25%, transparent 25%) 0 0 / 20px 20px,
+    linear-gradient(45deg, transparent 75%, #e0faff 75%) 0 0 / 20px 20px,
+    #c0b0ff;
 }
 
 .comparison-frame img {
@@ -410,7 +410,7 @@ h3 {
   position: relative;
   width: 38px;
   height: 20px;
-  background: #3a3a3a;
+  background: #e5e5e5;
   transition: background 150ms ease;
 }
 
@@ -430,7 +430,7 @@ h3 {
 }
 
 .switch-label input:checked + .switch::after {
-  background: #111;
+  background: #e6e6e6;
   transform: translateX(18px);
 }
 
