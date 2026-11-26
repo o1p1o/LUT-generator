@@ -1,0 +1,195 @@
+# Photo LUT Extractor
+
+Browser application that extracts a global RGB color transformation from an
+original/edited image pair and exports a truecolour RGB PNG compatible with
+Hald CLUT Level 8.
+
+All image processing is performed locally in the browser. Images are not
+uploaded anywhere.
+
+## Output format
+
+- PNG truecolour RGB, PNG colour type 2
+- 512 × 512 pixels
+- Hald CLUT Level 8
+- 64 × 64 × 64 RGB entries
+- Pixel order and geometry inherited directly from `neutral_LUT.png`
+
+The application does not construct an alternative LUT layout. It transforms
+the RGB values of the supplied neutral Hald image while preserving its exact
+dimensions and pixel positions.
+
+## Setup
+
+Requirements:
+
+- Node.js 20 or newer
+- npm
+- A modern browser supporting Web Workers, OffscreenCanvas,
+  createImageBitmap and CompressionStream
+
+Copy the supplied files into:
+
+```text
+public/neutral_LUT.png
+public/garden_LUT.png
+```
+
+`neutral_LUT.png` is required and must be exactly 512×512 pixels.
+`garden_LUT.png` is only a visual reference and is not used by the algorithm.
+
+Install and start:
+
+```bash
+npm install
+npm run dev
+```
+
+Production validation:
+
+```bash
+npm test
+npm run build
+npm run preview
+```
+
+## Algorithm
+
+1. Browser image decoding and profile conversion
+   - `createImageBitmap` and Canvas are used to decode PNG, JPEG and WebP.
+   - The browser applies supported embedded ICC profiles during decoding.
+   - Canvas pixel values are requested in the browser's sRGB colour space.
+
+2. Image registration
+   - Both images are converted to normalized luminance edge maps.
+   - A coarse-to-fine similarity registration searches for scale and
+     normalized X/Y translation.
+   - Registration confidence is reported to the user.
+   - Perspective changes and large rotations are intentionally not inferred,
+     because they make RGB correspondence unreliable.
+
+3. Sample extraction
+   - Up to approximately 150,000 corresponding RGB pairs are collected.
+   - Samples near strong spatial edges receive rejection to reduce errors from
+     sharpening, resampling and small alignment differences.
+   - Clipped colours receive reduced weight.
+   - Dense colour regions are down-weighted so that common colours do not
+     completely suppress less frequent colours.
+
+4. Robust 3D reconstruction
+   - Samples are splatted trilinearly onto a 17×17×17 RGB control lattice.
+   - A regularized iterative solver combines:
+     - observed RGB transformations;
+     - neighbour smoothness;
+     - a weak identity prior for unsupported regions.
+   - A first model estimates residuals.
+   - A second robust fit applies Huber-like weighting and rejects extreme
+     outliers caused by local editing or bad correspondence.
+
+5. Hald generation
+   - Every RGB pixel from the supplied neutral LUT is evaluated through the
+     recovered transformation.
+   - Pixel positions are not rearranged.
+   - The result is encoded with a custom PNG encoder as colour type 2:
+     truecolour RGB without an alpha channel.
+
+6. Quality estimation
+   - RGB MAE is calculated in encoded sRGB units.
+   - Mean CIE76 Delta E is calculated after conversion to CIE Lab.
+   - Errors are measured against sampled pixels from the edited image.
+
+## Identity test
+
+When ORIGINAL and EDITED are identical, the recovered model remains close to
+identity because:
+
+- corresponding observations map RGB values to themselves;
+- unsupported colour regions are regularized toward identity;
+- the neutral Hald image itself is not resampled or rearranged.
+
+Small differences may remain because the model is fitted from a finite set of
+photo colours and uses regularization. The included automated test checks the
+identity reconstruction.
+
+## Limitations
+
+A conventional 3D LUT can represent only a global mapping:
+
+```text
+output RGB = f(input RGB)
+```
+
+It cannot represent operations that depend on pixel position, neighbouring
+pixels, object identity or hidden scene data. Examples include:
+
+- local masks and gradients;
+- vignetting;
+- dodging and burning;
+- sky replacement;
+- retouching;
+- local clarity and sharpening;
+- blur, grain and texture;
+- denoising;
+- bloom and halation;
+- different RAW highlight reconstruction;
+- compositing;
+- strongly clipped channels.
+
+Such effects appear as contradictory RGB samples. Robust fitting suppresses
+them but cannot reproduce them.
+
+The automatic registration supports moderate translation, scale and crop
+differences. It does not attempt full projective registration. For maximum
+accuracy, use images exported at the same resolution and crop, without
+geometric edits.
+
+## GitHub Pages deployment
+
+1. Create a GitHub repository.
+2. Commit the project to the `main` branch.
+3. Open repository **Settings → Pages**.
+4. Set **Source** to **GitHub Actions**.
+5. Push to `main`.
+
+The included workflow runs tests, builds the Vite application and publishes
+the `dist` directory.
+
+`vite.config.ts` uses a relative base path, so the application works both at a
+user/organization Pages root and under a repository subpath.
+
+## Privacy
+
+No backend, analytics, database, account, registration or external image API
+is used. Uploaded photographs remain in browser memory and are discarded on
+reset or page close.
+```
+
+---
+
+## Что реализовано
+
+- Независимые ORIGINAL/EDITED загрузчики.
+- Drag & Drop и замена файлов.
+- PNG/JPEG/WebP.
+- Browser-managed ICC → sRGB.
+- Масштабирование больших фотографий до рабочего размера.
+- Автоматическая регистрация масштаба и смещения.
+- Предупреждение при низкой достоверности регистрации.
+- До 150 000 RGB-соответствий.
+- Подавление пикселей на сильных пространственных границах.
+- Балансировка редких и часто встречающихся цветов.
+- Robust fitting с удалением выбросов.
+- Регуляризованная 3D-модель 17³.
+- Интерполяция преобразования для отсутствующих в фотографии цветов.
+- Применение модели непосредственно к предоставленной `neutral_LUT.png`.
+- Экспорт **PNG color type 2 — RGB без alpha**.
+- Размер результата строго 512×512.
+- Прогресс обработки из Web Worker.
+- MAE и средний ΔE76.
+- Превью применения LUT к ORIGINAL.
+- RESET и повторная генерация.
+- Тест идентичной пары.
+- GitHub Pages workflow.
+- Все URL совместимы с repository subpath GitHub Pages.
+
+Важно: бинарный `neutral_LUT.png` должен быть именно приложенным пользователем файлом и находиться в `public/neutral_LUT.png`; приложение проверяет его размер перед обработкой.
