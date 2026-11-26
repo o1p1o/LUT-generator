@@ -12,7 +12,7 @@
   --muted: #989898;
   --accent: #93006e;
   --danger: #ff992b;
-  --warning: #a6c5ff;
+  --warning: #ef8732;
 }
 
 * {
@@ -117,7 +117,7 @@ h3 {
 .metrics-card,
 .comparison {
   border: 1px solid var(--line);
-  background: #f4f4f4f0;
+  background:#f2e2e2;;
 }
 
 .upload-card {
