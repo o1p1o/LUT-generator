@@ -117,7 +117,7 @@ h3 {
 .metrics-card,
 .comparison {
   border: 1px solid var(--line);
-  background:#f2e2e2;;
+  background:#ffffff8a;
 }
 
 .upload-card {
@@ -305,7 +305,7 @@ h3 {
 .result-card,
 .metrics-card {
   padding: 18px;
-  background: #d1d1d1;
+  background: #fff;
 }
 
 .lut-card img {
