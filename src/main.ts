@@ -321,14 +321,15 @@ async function encodeRgbPng(
     );
   }
 
-  const compression = new CompressionStream("deflate");
-  const writer = compression.writable.getWriter();
-  await writer.write(raw);
-  await writer.close();
+const compression = new CompressionStream("deflate");
+const writer = compression.writable.getWriter();
 
-  const compressed = new Uint8Array(
-    await new Response(compression.readable).arrayBuffer()
-  );
+await writer.write(raw);
+await writer.close();
+
+const compressed = new Uint8Array(
+  await new Response(compression.readable).arrayBuffer()
+);
 
   const ihdr = new Uint8Array(13);
   ihdr.set(uint32(width), 0);
