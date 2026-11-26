@@ -324,13 +324,17 @@ async function encodeRgbPng(
 const compression = new CompressionStream("deflate");
 const writer = compression.writable.getWriter();
 
+const compressedPromise = new Response(
+  compression.readable
+).arrayBuffer();
+
 await writer.write(raw);
 await writer.close();
 
 const compressed = new Uint8Array(
-  await new Response(compression.readable).arrayBuffer()
+  await compressedPromise
 );
-
+  
   const ihdr = new Uint8Array(13);
   ihdr.set(uint32(width), 0);
   ihdr.set(uint32(height), 4);
