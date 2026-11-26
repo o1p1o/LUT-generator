@@ -382,9 +382,9 @@ h3 {
   margin-top: 14px;
   overflow: hidden;
   background:
-    linear-gradient(45deg, #f4feff 25%, transparent 25%) 0 0 / 20px 20px,
-    linear-gradient(45deg, transparent 75%, #fff5f4 75%) 0 0 / 20px 20px,
-    #fdfaff;
+    linear-gradient(45deg, #fff 25%, transparent 25%) 0 0 / 20px 20px,
+    linear-gradient(45deg, transparent 75%, #efefef 75%) 0 0 / 20px 20px,
+    #dfdfdf;
 }
 
 .comparison-frame img {
