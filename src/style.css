@@ -263,7 +263,7 @@ h3 {
 .progress-track {
   height: 5px;
   overflow: hidden;
-  background: #333;
+  background: #ffffff;
 }
 
 .progress-bar {
@@ -287,7 +287,7 @@ h3 {
 }
 
 .message-warning {
-  border-color: #6c5931;
+  border-color: #c97eb6;
   color: var(--warning);
   background: #f4f4f4;
 }
