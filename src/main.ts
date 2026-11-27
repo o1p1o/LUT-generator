@@ -83,6 +83,24 @@ function updateGenerateState(): void {
     running || !slots.original.file || !slots.edited.file;
 }
 
+function updateUploadLabel(name: SlotName, uploaded: boolean): void {
+  const drop = slots[name].drop;
+  const title = drop.querySelector<HTMLElement>(".drop-copy strong");
+  const hint = drop.querySelector<HTMLElement>(".drop-copy small");
+
+  if (!title || !hint) return;
+
+  title.textContent = uploaded
+    ? "File uploaded"
+    : name === "original"
+      ? "Drop original image"
+      : "Drop edited image";
+
+  hint.textContent = uploaded
+    ? ""
+    : "or click to select PNG, JPEG or WebP";
+}
+
 function clearResult(): void {
   resultSection.hidden = true;
   resultBlob = null;
@@ -112,6 +130,8 @@ function useFile(name: SlotName, file: File): void {
   slot.preview.hidden = false;
   slot.drop.classList.add("has-image");
   slot.meta.textContent = `${file.name} · ${formatBytes(file.size)}`;
+
+updateUploadLabel(name, true);
 
   if (name === "original") {
     comparisonOriginal.src = slot.objectUrl;
@@ -493,6 +513,9 @@ function reset(): void {
     slot.meta.textContent = "No image";
     slot.drop.classList.remove("has-image", "is-dragging");
   }
+
+  updateUploadLabel("original", false);
+  updateUploadLabel("edited", false);
 
   comparisonOriginal.removeAttribute("src");
   clearResult();
