@@ -194,9 +194,9 @@ h3 {
 
 .button {
   min-height: 46px;
-  padding: 0 19px;
+  padding: 18px 24px;
   border: 1px solid #cdcdcd;
-  border-radius: 0;
+  border-radius: 30px;
   font-size: 0.76rem;
   font-weight: 850;
   letter-spacing: 0.1em;
@@ -388,8 +388,8 @@ h3 {
   margin-top: 14px;
   overflow: hidden;
   background:
-    linear-gradient(45deg, #f1f1f1 25%, transparent 25%) 0 0 / 20px 20px,
-    linear-gradient(45deg, transparent 75%, #f6f6f6 75%) 0 0 / 20px 20px,
+    linear-gradient(45deg, #f3f3f3 25%, transparent 25%) 0 0 / 20px 20px,
+    linear-gradient(45deg, transparent 75%, #f7f7f7 75%) 0 0 / 20px 20px,
     #fff;
 }
 
@@ -419,6 +419,7 @@ h3 {
   height: 20px;
   background: #c97eb6;
   transition: background 150ms ease;
+  border-radius: 30px;
 }
 
 .switch::after {
@@ -430,6 +431,7 @@ h3 {
   content: "";
   background: #ddd;
   transition: transform 150ms ease;
+  border-radius: 30px;
 }
 
 .switch-label input:checked + .switch {
@@ -437,7 +439,6 @@ h3 {
 }
 
 .switch-label input:checked + .switch::after {
-  background: #ffcfed;
   transform: translateX(18px);
 }
 
