@@ -263,7 +263,7 @@ h3 {
 .progress-track {
   height: 5px;
   overflow: hidden;
-  background: #ffffff;
+  background: #d7d7d7;
 }
 
 .progress-bar {
