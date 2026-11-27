@@ -13,6 +13,7 @@
   --accent: #93006e;
   --danger: #ff992b;
   --warning: #ef8732;
+  --radius: 20px;
 }
 
 * {
@@ -118,10 +119,11 @@ h3 {
 .comparison {
   border: 1px solid var(--line);
   background:#ffffff8a;
+  border-radius: var(--radius);
 }
 
 .upload-card {
-  padding: 20px;
+  padding: 20px 20px 32px 20px;
 }
 
 .file-meta {
@@ -142,6 +144,7 @@ h3 {
   overflow: hidden;
   border: 1px dashed #e7e7e7;
   background: #fff9f9;
+  border-radius: var(--radius);
   transition:
     border-color 160ms ease,
     transform 160ms ease;
@@ -180,6 +183,7 @@ h3 {
   padding: 9px 12px;
   background: rgba(239, 239, 239, 0.72);
   backdrop-filter: blur(8px);
+  border-radius: var(--radius);
 }
 
 .drop-copy {
@@ -275,32 +279,36 @@ h3 {
 
 .message {
   margin-top: 18px;
-  padding: 15px 18px;
+  padding: 25px 28px;
   border: 1px solid;
   line-height: 1.55;
+  border-radius: var(--radius);
 }
 
 .message-error {
   border-color: #c33f92;
   color: var(--danger);
   background: #dbdbdb;
+  border-radius: var(--radius);
 }
 
 .message-warning {
   border-color: #c97eb6;
   color: var(--warning);
   background: #f4f4f4;
+  border-radius: var(--radius);
 }
 
 .message-success {
   border-color: #c1289b;
   color: #a40e63;
   background: #eeeeee;
+  border-radius: var(--radius);
 }
 
 .result-section {
   margin-top: 42px;
-  padding: 26px;
+  padding: 26px 26px 36px 26px;
   scroll-margin-top: 20px;
 }
 
