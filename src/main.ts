@@ -103,6 +103,7 @@ function updateUploadLabel(name: SlotName, uploaded: boolean): void {
 
 function clearResult(): void {
   resultSection.hidden = true;
+  $(".app").classList.remove("has-results");
   resultBlob = null;
 
   if (resultUrl) URL.revokeObjectURL(resultUrl);
@@ -444,6 +445,7 @@ async function generate(): Promise<void> {
           Number(payload.sampleCount).toLocaleString();
 
         resultSection.hidden = false;
+        $(".app").classList.add("has-results");
         setProgress(100, "Hald CLUT generated");
 
         if (payload.warning) {
