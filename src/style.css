@@ -166,7 +166,7 @@ h3 {
 .file-icon { 
   color: var(--accent);
   font-size: 4rem;
-  line-height: 1; 
+  line-height: 0.9; 
 }
 .drop-zone img {
   width: 100%;
@@ -445,6 +445,19 @@ h3 {
   display: none !important;
 }
 
+.footer-panel {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 40px 0 0 0;
+}
+
+
+.footer-panel p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 @media (max-width: 760px) {
   .app {
     width: min(100% - 20px, 1180px);
@@ -481,4 +494,8 @@ h3 {
   .result-details {
     grid-template-columns: 1fr;
   }
+}
+
+.app.has-results .footer-panel p {
+  color: #ffcfed;
 }
